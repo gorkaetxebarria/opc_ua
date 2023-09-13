@@ -19,14 +19,14 @@ _logger = logging.getLogger('asyncua')
 
 
 @uamethod
-def move_left(parent):
+async def move_left(parent):
     await parent.state.write_value('Rest position')
     time.sleep(5)
     return 'Move to left completed'
 
 
 @uamethod
-def move_right(parent):
+async def move_right(parent):
     await parent.state.write_value('Piece Placed')
     time.sleep(5)
     return 'Move to right completed'
@@ -74,7 +74,7 @@ async def main():
         ua.NodeId('robotic_arm/move_left', idx),
         'move_left',
         move_left,
-        [ua.VariantType.String],
+        [ua.VariantType.NodeId],
         [ua.VariantType.String]
     )
 
@@ -82,7 +82,7 @@ async def main():
         ua.NodeId('robotic_arm/move_right', idx),
         'move_right',
         move_right,
-        [ua.VariantType.String],
+        [ua.VariantType.NodeId],
         [ua.VariantType.String]
     )
 
@@ -94,6 +94,10 @@ async def main():
             await asyncio.sleep(2)
             temperature = random.randint(30, 60)
             speed = random.randint(20, 40)
+            # dudoso esto de abajo
+
+            # result = await robotic_arm.call_method('robotic_arm/move_left', 'some_string_argument')
+            # print(result)
 
             await temp.write_value(temperature)
             await spd.write_value(speed)
