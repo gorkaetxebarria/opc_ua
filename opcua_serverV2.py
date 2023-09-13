@@ -33,7 +33,6 @@ def move_right(parent):
 
 
 async def main():
-    states = ['Rest position', 'Piece Placed']
     server = Server()
     await server.init()
     server.set_endpoint('opc.tcp://0.0.0.0:4840/opcua_server/')
@@ -67,7 +66,7 @@ async def main():
     state = await robotic_arm.add_variable(
         ua.NodeId('robotic_arm/state', idx),
         'state',
-        states
+        ' '
     )
 
     # Add methods
