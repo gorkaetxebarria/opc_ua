@@ -20,14 +20,14 @@ _logger = logging.getLogger('asyncua')
 
 @uamethod
 def move_left(parent):
-    await parent.state.write_value('Piece Placed')
+    await parent.state.write_value('Rest position')
     time.sleep(5)
     return 'Move to left completed'
 
 
 @uamethod
 def move_right(parent):
-    await parent.state.write_value('Rest position')
+    await parent.state.write_value('Piece Placed')
     time.sleep(5)
     return 'Move to right completed'
 
