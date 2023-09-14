@@ -66,7 +66,7 @@ async def main():
     state = await robotic_arm.add_variable(
         ua.NodeId('robotic_arm/state', idx),
         'state',
-        ' '
+        ''
     )
 
     # Add methods
@@ -88,16 +88,12 @@ async def main():
 
     _logger.info(f'Starting server!')
 
-    # Loop to update temperature and speed
+    
     async with server:
         while True:
             await asyncio.sleep(2)
             temperature = random.randint(30, 60)
-            speed = random.randint(20, 40)
-            # dudoso esto de abajo
-
-            # result = await robotic_arm.call_method('robotic_arm/move_left', 'some_string_argument')
-            # print(result)
+            speed = random.randint(20, 60)
 
             await temp.write_value(temperature)
             await spd.write_value(speed)
