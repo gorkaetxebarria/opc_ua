@@ -17,21 +17,6 @@ logging.basicConfig(
 )
 _logger = logging.getLogger('asyncua')
 
-
-@uamethod
-async def move_left(parent):
-    await parent.state.write_value('Rest position')
-    time.sleep(5)
-    return 'Move to left completed'
-
-
-@uamethod
-async def move_right(parent):
-    await parent.state.write_value('Piece Placed')
-    time.sleep(5)
-    return 'Move to right completed'
-
-
 async def main():
     server = Server()
     await server.init()
@@ -41,9 +26,24 @@ async def main():
     # setup our own namespace
     uri = 'http://examples.mondragon.edu/opcua'
     idx = await server.register_namespace(uri)
-
     print(idx)
-
+    
+    @uamethod
+    async def move_left(parent):
+        time.sleep(5)
+        await state.write_value("Rest position")
+        return 'Move to left completed'
+    @uamethod
+    async def move_right(parent):
+        time.sleep(5)
+        await state.write_value('Piece Placed')
+        return 'Move to right completed'
+    @uamethod
+    async def reset(parent):
+        time.sleep(5)
+        await state.write_value('Reset')
+        return 'Reset'
+    
     # get Objects node, this is where we should put our custom stuff
     objects = server.nodes.objects
     # Create object
@@ -85,7 +85,14 @@ async def main():
         [ua.VariantType.NodeId],
         [ua.VariantType.String]
     )
-
+    
+    await robotic_arm.add_method(
+        ua.NodeId('robotic_arm/reset', idx),
+        'reset',
+        reset,
+        [ua.VariantType.NodeId],
+        [ua.VariantType.String]
+    )
     _logger.info(f'Starting server!')
 
     
