@@ -30,27 +30,27 @@ async def main():
     
     @uamethod
     async def air_conditioner_1ToON(parent):
-        await air_conditioner_1_state.write_value("ON")
+        await air_conditioner_1_state.write_value("on")
         return 'air_conditioner_1 switched to ON'
     @uamethod
     async def air_conditioner_1ToOFF(parent):
-        await air_conditioner_1_state.write_value("OFF")
+        await air_conditioner_1_state.write_value("off")
         return 'air_conditioner_1 switched to OFF'
     @uamethod
     async def air_conditioner_2ToON(parent):
-        await air_conditioner_2_state.write_value('ON')
+        await air_conditioner_2_state.write_value('on')
         return 'air_conditioner_2 switched to ON'
     @uamethod
     async def air_conditioner_2ToOFF(parent):
-        await air_conditioner_2_state.write_value('OFF')
+        await air_conditioner_2_state.write_value('off')
         return 'air_conditioner_2 switched to OFF'
     @uamethod
     async def air_conditioner_3ToON(parent):
-        await air_conditioner_3_state.write_value('ON')
+        await air_conditioner_3_state.write_value('on')
         return 'air_conditioner_3 switched to ON'
     @uamethod
     async def air_conditioner_3ToOFF(parent):
-        await air_conditioner_3_state.write_value('OFF')
+        await air_conditioner_3_state.write_value('off')
         return 'air_conditioner_3 switched to OFF'
     
     # get Objects node, this is where we should put our custom stuff
@@ -58,32 +58,32 @@ async def main():
     # Create object
     air_conditioner_1 = await objects.add_object(
         ua.NodeId('air_conditioner_1', idx),
-        'Robotic Arm'
+        'air conditioner 1'
     )
     air_conditioner_2 = await objects.add_object(
         ua.NodeId('air_conditioner_2', idx),
-        'Robotic Arm'
+        'air conditioner 2'
     )
     air_conditioner_3 = await objects.add_object(
     ua.NodeId('air_conditioner_3', idx),
-    'Robotic Arm'
+    'air conditioner 3'
     )
 
     air_conditioner_2_state = await air_conditioner_2.add_variable(
         ua.NodeId('air_conditioner_2/state', idx),
         'state3',
-        'OFF'
+        'off'
     )
     air_conditioner_3_state = await air_conditioner_3.add_variable(
         ua.NodeId('air_conditioner_3/state', idx),
         'state2',
-        'OFF'
+        'off'
     )
 
     air_conditioner_1_state = await air_conditioner_1.add_variable(
         ua.NodeId('air_conditioner_1/State', idx),
         'state1',
-        'OFF'
+        'off'
     )
 
     # Add methods
